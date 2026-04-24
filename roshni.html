@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Invitation 🎉</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #000000, #0a1f44);
+    color: white;
+    overflow: hidden;
+}
+
+.question {
+    font-size: 28px;   /* adjust size here */
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.dresscode{
+     font-size: 28px;   /* adjust size here */
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input {
+    outline: none;
+    text-align: center;
+    font-size: 14px;
+}
+
+#responseMsg {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Pages */
+.page {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.active {
+    display: flex;
+}
+
+/* Floating hearts container */
+.hearts {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none; /* IMPORTANT */
+}
+
+/* Heart base */
+.heart {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    transform: rotate(-45deg);
+    animation: floatUp linear infinite;
+    opacity: 0.75;
+}
+
+/* Create heart shape */
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-image: url('background.jpeg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}
+
+/* center square part */
+.heart {
+    background-image: url('background.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* circles */
+.heart::before {
+    top: -40px;
+    left: 0;
+}
+
+.heart::after {
+    left: 40px;
+    top: 0;
+}
+
+/* Floating animation */
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh) rotate(-45deg) scale(0.7);
+    }
+    to {
+        transform: translateY(-10vh) rotate(-45deg) scale(1.2);
+    }
+}
+
+/* Buttons */
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1e90ff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #00bfff;
+}
+
+/* No button runaway */
+#noBtn {
+    position: fixed;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ONE hearts container -->
+<div class="hearts"></div>
+
+<!-- Page 1 -->
+<div id="page1" class="page active">
+    <h1>🎂 You’ve been invited BITCH to you own birthday celebration!!!!</h1>
+    <p class="question">Are you coming or not?</p>
+    
+    <button onclick="nextPage('page2')">Yes 💙</button>
+    <button id="noBtn">No ❌</button>
+</div>
+
+<!-- Page 2 -->
+<div id="page2" class="page">
+    <h1>Yayyy 😎😙</h1>
+    <p class="dresscode">Dress Code: Grey bodycon dress</p>
+    
+    <p style="margin-top:20px;">Want to suggest a different dress code? 👀</p>
+
+    <input type="text" id="dressInput" placeholder="Type your idea..."
+        style="padding:10px; border-radius:8px; border:none; width:220px;">
+
+    <br>
+
+    <button onclick="submitDress()">Submit 💌</button>
+
+    <p id="responseMsg" style="margin-top:15px;"></p>
+
+    <button onclick="nextPage('page3')">Next ➡️</button>
+</div>
+
+<!-- Page 3 -->
+<div id="page3" class="page">
+    <h1>👜 Essentials to Bring</h1>
+
+    <ul style="list-style: none; padding: 0; font-size: 18px;">
+        <li># Grey Bodycon Dress</li>
+        <li># Black Boots</li>
+        <li># Accesories</li>
+        <li># Body Mist/Perfume</li>
+        <li># Black Shades</li>
+        <li># Cap</li>
+        <li># Makeup touch-up</li>
+        <li># White Bag(because we gotta match)</li>
+        <li># Phone (fully charged please)</li>
+        <li># Purse (IC and Matric MUST GOT)</li>
+        <li># Tissue</li>
+        <li>💙 Full social battery charged for the day!!</li>
+        <li>💙 Good vibes only</li>
+    </ul>
+
+    <button onclick="nextPage('page4')">Next ➡️</button>
+</div>
+
+
+<!-- Page 4-->
+<div id="page4" class="page">
+    <h1>Important Info 📍</h1>
+    <p>I know you're not used to celebrate birthday and birthday has not always been a thing to you pun
+        but the moment you decided to be my friend just know that every special day,i will be there to make
+        it special for you because like it or not you deserved the love and appreciation.
+        So just enjoy the day that I've planned for you!!!!
+    </p>
+    <p>STRING REMINDER: YOU DO NOT MENTION ABOUT THE MONEY OR ANYTHING THAT IM GOING TO SPOIL ON YOU😡😡
+        Don't feel bad ke apa and wanna do lagi luxury for me just because I did like this,nope okay??
+        I want to spent you because I really appreciate you🥰😍🥰😍
+    </p>
+    <p>Location: Secret... 🤫</p>
+    <button onclick="alert('See you there 😉')">Finish</button>
+</div>
+
+<script>
+// Page navigation
+function nextPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+}
+
+// Create floating hearts
+const heartsContainer = document.querySelector(".hearts");
+
+for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+
+    heart.style.left = Math.random() * 100 + "vw";
+    const size = 50 + Math.random() * 50;
+    heart.style.width = size + "px";
+    heart.style.height = size + "px";
+
+    heart.style.animationDuration = (6 + Math.random() * 6) + "s";
+
+    heartsContainer.appendChild(heart);
+}
+
+// RUNAWAY NO BUTTON 😈
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+function submitDress() {
+    const input = document.getElementById("dressInput").value;
+    const msg = document.getElementById("responseMsg");
+
+    if (input.trim() === "") {
+        msg.innerText = "At least try something 😒";
+        return;
+    }
+
+    // Fun responses
+    const responses = [
+        "Hmm... I'll consider it 😏",
+        "Rejected ❌ Grey Bodycon only 😌",
+        "Okay maybe... but still no 😆",
+        "Nice try 😂 but dress code stays",
+        "You really thought I'd change it? 😭"
+    ];
+
+    const random = responses[Math.floor(Math.random() * responses.length)];
+    msg.innerText = `You said: "${input}" → ${random}`;
+}
+</script>
+
+</body>
+</html>
